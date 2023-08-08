@@ -11,15 +11,37 @@ struct ListView: View {
     @EnvironmentObject var context: ContextManager
     
     var body: some View {
-        List {
-            ForEach($context.notes) { note in
-                NavigationLink {
-                    NoteDetailView(note: note)
-                } label: {
-                    ListNoteCell(note: note.wrappedValue)
+        ZStack {
+            List {
+                ForEach($context.notes) { note in
+                    NavigationLink {
+                        NoteDetailView(note: note)
+                    } label: {
+                        ListNoteCell(note: note.wrappedValue)
+                    }
+                }
+                .onDelete { context.removeNote(offset: $0) }
+            }
+            .navigationTitle("Notes")
+            .toolbar {
+                EditButton()
+            }
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button {
+                        context.addNote(title: "", content: "")
+                    } label: {
+                        HStack() {
+                            Image(systemName: "plus.circle.fill")
+                            Text("Add note")
+                        }
+                    }
                 }
             }
-        }.navigationTitle("Notes")
+            .padding()
+        }
     }
 }
 
