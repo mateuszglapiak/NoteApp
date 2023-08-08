@@ -23,6 +23,7 @@
 		6164AFAB2A82AB380079B5CA /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFAA2A82AB380079B5CA /* Context.swift */; };
 		6164AFAD2A82ABB10079B5CA /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFAC2A82ABB10079B5CA /* WebSocketManager.swift */; };
 		6164AFAF2A82ABFB0079B5CA /* WSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFAE2A82ABFB0079B5CA /* WSObject.swift */; };
+		6164AFB22A82BFA90079B5CA /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6164AFB12A82BFA90079B5CA /* Network.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		6164AFAA2A82AB380079B5CA /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		6164AFAC2A82ABB10079B5CA /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		6164AFAE2A82ABFB0079B5CA /* WSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSObject.swift; sourceTree = "<group>"; };
+		6164AFB12A82BFA90079B5CA /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
+		6164AFB32A82C0650079B5CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6164AFB22A82BFA90079B5CA /* Network.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +84,7 @@
 				6164AF672A8254040079B5CA /* NoteApp */,
 				6164AF782A8254060079B5CA /* NoteAppTests */,
 				6164AF662A8254040079B5CA /* Products */,
+				6164AFB02A82BFA80079B5CA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +100,7 @@
 		6164AF672A8254040079B5CA /* NoteApp */ = {
 			isa = PBXGroup;
 			children = (
+				6164AFB32A82C0650079B5CA /* Info.plist */,
 				6164AF682A8254040079B5CA /* NoteApp.swift */,
 				6164AF952A8257920079B5CA /* Views */,
 				6164AF922A82569E0079B5CA /* Model */,
@@ -192,6 +198,14 @@
 				6164AFAA2A82AB380079B5CA /* Context.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		6164AFB02A82BFA80079B5CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6164AFB12A82BFA90079B5CA /* Network.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,7 +467,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NoteApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_FILE = NoteApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -483,7 +497,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NoteApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_FILE = NoteApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

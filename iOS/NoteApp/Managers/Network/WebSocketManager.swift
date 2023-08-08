@@ -42,7 +42,9 @@ class WebSocketManager {
             case .success(let message):
                 switch message {
                 case .string(let text):
-                    self?.delegate?.didReceiveMessage(text)
+                    DispatchQueue.main.async {
+                        self?.delegate?.didReceiveMessage(text)
+                    }
                 case .data(let data):
                     print("Received data: \(data)")
                 @unknown default:

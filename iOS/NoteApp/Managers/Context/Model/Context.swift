@@ -7,6 +7,6 @@
 
 import Foundation
 
-class Context: ObservableObject {
-    @Published var notes = [Note]()
+struct Context {
+    var notes = [Note]()
 }

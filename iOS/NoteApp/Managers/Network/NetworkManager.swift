@@ -20,6 +20,7 @@ class NetworkManager {
     var delegate: NetworkManagerDeleagate?
     
     var cancellable = Set<AnyCancellable>()
+    private static let sessionProcessingQueue = DispatchQueue(label: "session.network.noteapp")
     
     init() {
         let url = URL(string: websocket)!
@@ -43,6 +44,7 @@ class NetworkManager {
         )
         
         return URLSession.shared.dataTaskPublisher(for: request)
+            .subscribe(on: Self.sessionProcessingQueue)
             .map(\.data)
             .decode(type: [Note].self, decoder: JSONDecoder())
             .replaceError(with: [])
@@ -60,6 +62,7 @@ class NetworkManager {
         )
         
         return URLSession.shared.dataTaskPublisher(for: request)
+            .subscribe(on: Self.sessionProcessingQueue)
             .map(\.data)
             .decode(type: Note?.self, decoder: JSONDecoder())
             .replaceError(with: nil)
@@ -78,6 +81,7 @@ class NetworkManager {
         )
         
         return URLSession.shared.dataTaskPublisher(for: request)
+            .subscribe(on: Self.sessionProcessingQueue)
             .map(\.data)
             .decode(type: NoteResponse.self, decoder: JSONDecoder())
             .replaceError(with: .failed())
@@ -96,6 +100,7 @@ class NetworkManager {
         )
         
         return URLSession.shared.dataTaskPublisher(for: request)
+            .subscribe(on: Self.sessionProcessingQueue)
             .map(\.data)
             .decode(type: NoteResponse.self, decoder: JSONDecoder())
             .replaceError(with: .failed())
@@ -114,6 +119,7 @@ class NetworkManager {
         )
         
         return URLSession.shared.dataTaskPublisher(for: request)
+            .subscribe(on: Self.sessionProcessingQueue)
             .map(\.data)
             .decode(type: NoteResponse.self, decoder: JSONDecoder())
             .replaceError(with: .failed())

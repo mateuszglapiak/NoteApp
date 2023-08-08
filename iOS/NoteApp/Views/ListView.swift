@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct ListView: View {
-    @Binding var context: Context
     @EnvironmentObject var manager: ContextManager
     
     var body: some View {
         ZStack {
             List {
-                ForEach($context.notes) { note in
+                ForEach($manager.current.notes) { note in
                     NavigationLink {
                         NoteDetailView(note: note)
                     } label: {
@@ -22,7 +21,7 @@ struct ListView: View {
                     }
                 }
                 .onDelete {
-                    manager.removeNote(context: &context, offset: $0)
+                    manager.removeNote(offset: $0)
                 }
             }
             .navigationTitle("Notes")
@@ -34,7 +33,7 @@ struct ListView: View {
                 HStack {
                     Spacer()
                     Button {
-                        manager.addNote(context: &context)
+                        manager.addNote()
                     } label: {
                         HStack() {
                             Image(systemName: "plus.circle.fill")
@@ -60,7 +59,7 @@ struct ListView_Previews: PreviewProvider {
             ]
             return context
         }()
-        ListView(context: Binding.constant(context.current))
+        ListView()
             .environmentObject(context)
     }
 }
