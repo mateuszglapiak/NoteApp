@@ -21,4 +21,10 @@ struct Note : Codable, Hashable, Identifiable {
         self.title = title
         self.content = content
     }
+    
+    mutating func update(_ note: Note) {
+        self.id = note.id
+        self.title = note.title
+        self.content = note.content
+    }
 }
