@@ -7,13 +7,14 @@
 
 import Foundation
 
-struct WSObject: Decodable {
+struct WSObject: Codable {
     var method: String
     var id: String
+    var deviceId: String
 }
 
 extension WSObject {
     enum WSObjectMethod: String {
-        case insertOne, update, delete
+        case insertOne, update, delete, accessRequest
     }
 }

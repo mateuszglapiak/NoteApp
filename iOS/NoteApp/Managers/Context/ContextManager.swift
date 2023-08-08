@@ -12,6 +12,7 @@ import Combine
     @Published var current: Context
     private var cancellable = Set<AnyCancellable>()
     private let network: NetworkManager
+    private let deviceId = getDeviceID()
     
     init() {
         current = Context()
@@ -49,7 +50,7 @@ extension ContextManager {
     }
     
     func addNote(title: String = "", content: String = "") {
-        var note = Note(title: title, content: content)
+        var note = Note(title: title, content: content, access: [deviceId], owner: deviceId)
         
         network
             .createNote(note: note)
@@ -79,22 +80,41 @@ extension ContextManager {
         }
         current.notes.remove(atOffsets: offset)
     }
+    
+    func sendAccessRequest(note: Note) {
+        network
+            .sendAccessRequest(deviceId: deviceId, note: note)
+    }
+    
+    func checkAccess(note: Note) -> Bool {
+        return note.access.contains(deviceId)
+    }
+    
+    private func removeNote(id: String) {
+        current.notes = current.notes.filter { $0.id != id }
+    }
 }
 
 extension ContextManager: NetworkManagerDeleagate {
     func didReceiveWSObject(_ object: WSObject) {
         switch WSObject.WSObjectMethod(rawValue:object.method) {
-        case .insertOne:
-            
-            break
-        case .update:
+        case .insertOne, .update:
             getNote(id: object.id)
-            break
         case .delete:
-            
-            break
+            removeNote(id: object.id)
+        case .accessRequest:
+            print("request Access")
         case .none:
             break
         }
     }
+}
+
+private func getDeviceID() -> String {
+    guard let deviceId = UserDefaults.standard.string(forKey: "DeviceId") else {
+        let deviceId = UUID().uuidString
+        UserDefaults.standard.set(deviceId, forKey: "DeviceId")
+        return deviceId
+    }
+    return deviceId
 }

@@ -8,19 +8,23 @@
 import SwiftUI
 
 struct ListNoteCell: View {
-    var note: Note
+    @State var hasAccess: Bool
+    @State var note: Note
     
     var body: some View {
         HStack {
+            Image(systemName: hasAccess ? "lock.open" : "lock")
             Text(note.title)
             Spacer()
             Text(note.content)
+                .opacity(0.5)
+                .frame(maxWidth: 100)
         }.lineLimit(1)
     }
 }
 
 struct ListNoteCell_Previews: PreviewProvider {
     static var previews: some View {
-        ListNoteCell(note: Note(title: "Note 1", content: "Note content....."))
+        ListNoteCell(hasAccess: true, note: Note(title: "Note 1", content: "Note content....."))
     }
 }

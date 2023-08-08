@@ -14,15 +14,20 @@ struct NoteDetailView: View {
     var body: some View {
         Form {
             Section(header:
-                TextField("You can put your title here...", text: $note.title).textCase(nil)
+                        TextField("You can put your title here...",
+                                  text: $note.title,
+                                  onEditingChanged: { if !$0 { manager.editNote(note: note) }}
+                                 ).textCase(nil)
             ) {
-                TextEditor(text: $note.content)
-                    .frame(minHeight: 450)
+                DetectableTextEditor(
+                    text: $note.content,
+                    model: DetectableTextEditorModel(time: .seconds(0.5)) {
+                        manager.editNote(note: note)
+                    }
+                )
+                .frame(minHeight: 450)
             }
-        }.navigationBarTitleDisplayMode(.inline)
-            .onDisappear {
-                manager.editNote(note: note)
-            }
+        }
     }
 }
 

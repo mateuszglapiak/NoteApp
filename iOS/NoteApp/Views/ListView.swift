@@ -9,15 +9,35 @@ import SwiftUI
 
 struct ListView: View {
     @EnvironmentObject var manager: ContextManager
+    @State var owned: Bool = true
     
     var body: some View {
         ZStack {
             List {
-                ForEach($manager.current.notes) { note in
-                    NavigationLink {
-                        NoteDetailView(note: note)
-                    } label: {
-                        ListNoteCell(note: note.wrappedValue)
+                Toggle(isOn: $owned) {
+                    Text("All")
+                }
+                ForEach($manager.current.notes.filter { owned || manager.checkAccess(note: $0.wrappedValue) }) { note in
+                    let access = manager.checkAccess(note: note.wrappedValue)
+                    if access {
+                        NavigationLink {
+                            NoteDetailView(note: note)
+                        } label: {
+                            ListNoteCell(
+                                hasAccess: access,
+                                note: note.wrappedValue
+                            )
+                            .deleteDisabled(access)
+                        }
+                    } else {
+                        ListNoteCell(
+                            hasAccess: access,
+                            note: note.wrappedValue
+                        )
+                        .deleteDisabled(!access)
+                        .onLongPressGesture {
+                            manager.sendAccessRequest(note: note.wrappedValue)
+                        }
                     }
                 }
                 .onDelete {

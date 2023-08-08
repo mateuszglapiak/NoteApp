@@ -127,6 +127,21 @@ class NetworkManager {
     }
 }
 
+struct AccessRequestMessage: Codable {
+    var method: String
+    var deviceId: String
+    var id: String
+}
+
+extension NetworkManager {
+    func sendAccessRequest(deviceId: String, note: Note) {
+        let jsonData = try! JSONEncoder().encode(AccessRequestMessage(method: "accessRequest", deviceId: deviceId, id: note.id))
+        let jsonString = String(data: jsonData, encoding: .ascii)!
+        print(jsonString)
+        webSocketManager.send(message: jsonString)
+    }
+}
+
 extension NetworkManager: WebSocketManagerDelegate {
     func didReceiveMessage(_ message: String) {
         print("Received message: \(message)")
