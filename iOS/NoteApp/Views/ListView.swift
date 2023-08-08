@@ -12,14 +12,14 @@ struct ListView: View {
     
     var body: some View {
         List {
-            ForEach(context.notes) { note in
-                HStack {
-                    Text(note.title)
-                    Spacer()
-                    Text(note.content)
+            ForEach($context.notes) { note in
+                NavigationLink {
+                    NoteDetailView(note: note)
+                } label: {
+                    ListNoteCell(note: note.wrappedValue)
                 }
             }
-        }
+        }.navigationTitle("Notes")
     }
 }
 

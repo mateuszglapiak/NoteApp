@@ -11,6 +11,6 @@ class ContextManager: ObservableObject {
     @Published var notes: [Note]
     
     init() {
-        notes = []
+        notes = [Note(title: "First note", content: "")]
     }
 }

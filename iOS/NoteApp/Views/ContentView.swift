@@ -11,10 +11,9 @@ struct ContentView: View {
     @EnvironmentObject var context: ContextManager
     
     var body: some View {
-        VStack {
+        NavigationView {
             ListView()
         }
-        .padding()
     }
 }
 
