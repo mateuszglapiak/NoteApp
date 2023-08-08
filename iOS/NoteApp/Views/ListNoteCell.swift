@@ -15,7 +15,7 @@ struct ListNoteCell: View {
             Text(note.title)
             Spacer()
             Text(note.content)
-        }
+        }.lineLimit(1)
     }
 }
 

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NoteDetailView: View {
     @Binding var note: Note
+    @EnvironmentObject var manager: ContextManager
     
     var body: some View {
         Form {
@@ -19,6 +20,9 @@ struct NoteDetailView: View {
                     .frame(minHeight: 450)
             }
         }.navigationBarTitleDisplayMode(.inline)
+            .onDisappear {
+                manager.editNote(note: note)
+            }
     }
 }
 

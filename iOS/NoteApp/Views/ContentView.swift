@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var context: ContextManager
+    @EnvironmentObject var manager: ContextManager
     
     var body: some View {
         NavigationView {
-            ListView()
+            ListView(context: $manager.current)
         }
     }
 }
@@ -21,7 +21,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let context: ContextManager = {
             let context = ContextManager()
-            context.notes = [
+            context.current.notes = [
                 Note(title: "Note 1", content: "Note content....."),
                 Note(title: "Note 2", content: "Note content.....")
             ]

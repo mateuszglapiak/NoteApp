@@ -8,7 +8,17 @@
 import Foundation
 
 struct Note : Codable, Hashable, Identifiable {
-    var id = UUID()
+    private enum CodingKeys : String, CodingKey {
+        case id = "_id", title, content
+    }
+    
+    var id: String
     var title: String
     var content: String
+    
+    init(id: String = UUID().uuidString, title: String, content: String) {
+        self.id = id
+        self.title = title
+        self.content = content
+    }
 }

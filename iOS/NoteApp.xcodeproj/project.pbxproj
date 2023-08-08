@@ -17,6 +17,10 @@
 		6164AF9A2A825C7D0079B5CA /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AF992A825C7D0079B5CA /* ListView.swift */; };
 		6164AF9C2A825D7B0079B5CA /* ListNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AF9B2A825D7B0079B5CA /* ListNoteCell.swift */; };
 		6164AF9E2A825E530079B5CA /* NoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AF9D2A825E530079B5CA /* NoteDetailView.swift */; };
+		6164AFA02A827C630079B5CA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AF9F2A827C620079B5CA /* NetworkManager.swift */; };
+		6164AFA32A827CD60079B5CA /* URLRequest+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFA22A827CD60079B5CA /* URLRequest+Utils.swift */; };
+		6164AFA82A8281050079B5CA /* NoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFA72A8281050079B5CA /* NoteResponse.swift */; };
+		6164AFAB2A82AB380079B5CA /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFAA2A82AB380079B5CA /* Context.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +46,10 @@
 		6164AF992A825C7D0079B5CA /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		6164AF9B2A825D7B0079B5CA /* ListNoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListNoteCell.swift; sourceTree = "<group>"; };
 		6164AF9D2A825E530079B5CA /* NoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailView.swift; sourceTree = "<group>"; };
+		6164AF9F2A827C620079B5CA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		6164AFA22A827CD60079B5CA /* URLRequest+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Utils.swift"; sourceTree = "<group>"; };
+		6164AFA72A8281050079B5CA /* NoteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteResponse.swift; sourceTree = "<group>"; };
+		6164AFAA2A82AB380079B5CA /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,9 +139,53 @@
 		6164AF962A8257FE0079B5CA /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				6164AF972A82581D0079B5CA /* ContextManager.swift */,
+				6164AFA52A827D2D0079B5CA /* Context */,
+				6164AFA42A827D1D0079B5CA /* Network */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		6164AFA12A827CBA0079B5CA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6164AFA22A827CD60079B5CA /* URLRequest+Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		6164AFA42A827D1D0079B5CA /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				6164AF9F2A827C620079B5CA /* NetworkManager.swift */,
+				6164AFA62A8280E70079B5CA /* Model */,
+				6164AFA12A827CBA0079B5CA /* Utils */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		6164AFA52A827D2D0079B5CA /* Context */ = {
+			isa = PBXGroup;
+			children = (
+				6164AF972A82581D0079B5CA /* ContextManager.swift */,
+				6164AFA92A82921A0079B5CA /* Model */,
+			);
+			path = Context;
+			sourceTree = "<group>";
+		};
+		6164AFA62A8280E70079B5CA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6164AFA72A8281050079B5CA /* NoteResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6164AFA92A82921A0079B5CA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6164AFAA2A82AB380079B5CA /* Context.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,9 +289,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6164AF6B2A8254040079B5CA /* ContentView.swift in Sources */,
+				6164AFA32A827CD60079B5CA /* URLRequest+Utils.swift in Sources */,
 				6164AF9C2A825D7B0079B5CA /* ListNoteCell.swift in Sources */,
 				6164AF692A8254040079B5CA /* NoteApp.swift in Sources */,
+				6164AFAB2A82AB380079B5CA /* Context.swift in Sources */,
 				6164AF9A2A825C7D0079B5CA /* ListView.swift in Sources */,
+				6164AFA02A827C630079B5CA /* NetworkManager.swift in Sources */,
+				6164AFA82A8281050079B5CA /* NoteResponse.swift in Sources */,
 				6164AF942A8256AF0079B5CA /* Note.swift in Sources */,
 				6164AF982A82581D0079B5CA /* ContextManager.swift in Sources */,
 				6164AF9E2A825E530079B5CA /* NoteDetailView.swift in Sources */,
