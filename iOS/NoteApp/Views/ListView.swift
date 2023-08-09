@@ -8,37 +8,54 @@
 import SwiftUI
 
 struct ListView: View {
+    private enum PickerOption: Int {
+        case all, locked, unlocked
+    }
+    
+    @Environment(\.editMode) var editMode
     @EnvironmentObject var manager: ContextManager
-    @State var owned: Bool = true
+    @State private var listPickerOption = PickerOption.all
     
     var body: some View {
         ZStack {
             List {
-                Toggle(isOn: $owned) {
-                    Text("All")
+                Picker("", selection: $listPickerOption) {
+                    Text("All").tag(PickerOption.all)
+                    Image(systemName: "lock.open").tag(PickerOption.unlocked)
+                    Image(systemName: "lock").tag(PickerOption.locked)
                 }
-                ForEach($manager.current.notes.filter { owned || manager.checkAccess(note: $0.wrappedValue) }) { note in
+                .pickerStyle(.segmented)
+                ForEach($manager.current.notes.filter { note in
+                    switch listPickerOption {
+                    case .all:
+                        return true
+                    case .locked:
+                        return !manager.checkAccess(note: note.wrappedValue)
+                    case .unlocked:
+                        return manager.checkAccess(note: note.wrappedValue)
+                    }
+                }) { note in
                     let access = manager.checkAccess(note: note.wrappedValue)
-                    if access {
-                        NavigationLink {
-                            NoteDetailView(note: note)
-                        } label: {
+                    VStack {
+                        if access {
+                            NavigationLink {
+                                NoteDetailView(note: note)
+                            } label: {
+                                ListNoteCell(
+                                    hasAccess: access,
+                                    note: note
+                                )
+                            }
+                        } else {
                             ListNoteCell(
                                 hasAccess: access,
-                                note: note.wrappedValue
+                                note: note
                             )
-                            .deleteDisabled(access)
+                            .onLongPressGesture {
+                                manager.sendAccessRequest(note: note.wrappedValue)
+                            }
                         }
-                    } else {
-                        ListNoteCell(
-                            hasAccess: access,
-                            note: note.wrappedValue
-                        )
-                        .deleteDisabled(!access)
-                        .onLongPressGesture {
-                            manager.sendAccessRequest(note: note.wrappedValue)
-                        }
-                    }
+                    }.deleteDisabled(access)
                 }
                 .onDelete {
                     manager.removeNote(offset: $0)

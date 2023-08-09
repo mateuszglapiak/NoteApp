@@ -9,4 +9,16 @@ import Foundation
 
 struct Context {
     var notes = [Note]()
+    var alertModel: AlertModel?
+}
+
+extension Context {
+    var isAlertRequired: Bool {
+        set {
+            if !newValue { alertModel = nil }
+        }
+        get {
+            alertModel != nil
+        }
+    }
 }

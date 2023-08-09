@@ -80,18 +80,29 @@ extension ContextManager {
         }
         current.notes.remove(atOffsets: offset)
     }
-    
+}
+ 
+extension ContextManager {
     func sendAccessRequest(note: Note) {
         network
             .sendAccessRequest(deviceId: deviceId, note: note)
     }
-    
+}
+
+extension ContextManager {
     func checkAccess(note: Note) -> Bool {
         return note.access.contains(deviceId)
     }
     
     private func removeNote(id: String) {
         current.notes = current.notes.filter { $0.id != id }
+    }
+    
+    private func giveAccess(id: String, deviceId: String) {
+        if var note = current.notes.first(where: { $0.id == id }) {
+            note.access = Array(Set(note.access).union(Set([deviceId])))
+            editNote(note: note)
+        }
     }
 }
 
@@ -103,7 +114,14 @@ extension ContextManager: NetworkManagerDeleagate {
         case .delete:
             removeNote(id: object.id)
         case .accessRequest:
-            print("request Access")
+            guard object.deviceId != deviceId else { return }
+            current.alertModel = AlertModel(
+                title: "Access Request",
+                message: "Do you want to give access to this note?",
+                primaryButton: "Allow",
+                primaryButtonAction: { [weak self] in
+                    self?.giveAccess(id: object.id, deviceId: object.deviceId)
+                })
         case .none:
             break
         }
