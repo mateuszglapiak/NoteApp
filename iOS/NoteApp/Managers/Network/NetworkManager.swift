@@ -13,24 +13,30 @@ protocol NetworkManagerDeleagate {
 }
 
 class NetworkManager {
-    let server = "http://localhost:3000"
-    let websocket = "ws://localhost:3001"
+    let server: URL
+    let websocket: URL
     
-    let webSocketManager: WebSocketManager!
+    let webSocketManager: WebSocketManager?
     var delegate: NetworkManagerDeleagate?
     
     var cancellable = Set<AnyCancellable>()
     private static let sessionProcessingQueue = DispatchQueue(label: "session.network.noteapp")
     
-    init() {
-        let url = URL(string: websocket)!
-        webSocketManager = WebSocketManager()
-        webSocketManager.delegate = self
-        webSocketManager.connect(url: url)
+    init?(host: String) {
+        guard let server = URL(string: "http://\(host):3000"),
+              let websocket = URL(string: "ws://\(host):3001")
+        else {
+            return nil
+        }
+            self.server = server
+            self.websocket = websocket
+            webSocketManager = WebSocketManager()
+            webSocketManager?.delegate = self
+            webSocketManager?.connect(url: websocket)
     }
     
     deinit {
-        webSocketManager.disconnect()
+        webSocketManager?.disconnect()
     }
     
     func getNotes() -> AnyPublisher<[Note], Never> {
@@ -138,14 +144,14 @@ extension NetworkManager {
         let jsonData = try! JSONEncoder().encode(AccessRequestMessage(method: "accessRequest", deviceId: deviceId, id: note.id))
         let jsonString = String(data: jsonData, encoding: .ascii)!
         print(jsonString)
-        webSocketManager.send(message: jsonString)
+        webSocketManager?.send(message: jsonString)
     }
 }
 
 extension NetworkManager: WebSocketManagerDelegate {
     func didReceiveMessage(_ message: String) {
         print("Received message: \(message)")
-
+        
         let object: WSObject = try! JSONDecoder().decode(WSObject.self, from: message.data(using: .utf8)!)
         delegate?.didReceiveWSObject(object)
     }

@@ -11,20 +11,26 @@ import Combine
 @MainActor class ContextManager: ObservableObject {
     @Published var current: Context
     private var cancellable = Set<AnyCancellable>()
-    private let network: NetworkManager
+    private var network: NetworkManager?
     private let deviceId = getDeviceID()
     
     init() {
         current = Context()
-        network = NetworkManager()
-        network.delegate = self
+    }
+    
+    func connect(host: String) -> Bool {
+        guard let manager = NetworkManager(host: host) else { return false }
+        network = manager
+        network?.delegate = self
         getNotes()
+        
+        return true
     }
 }
 
 extension ContextManager {
     func getNotes() {
-        network
+        network?
             .getNotes()
             .receive(on: RunLoop.main)
             .sink { [weak self] notes in
@@ -34,7 +40,7 @@ extension ContextManager {
     }
     
     func getNote(id: String) {
-        network
+        network?
             .getNote(id: id)
             .receive(on:  RunLoop.main)
             .sink { [weak self] note in
@@ -52,7 +58,7 @@ extension ContextManager {
     func addNote(title: String = "", content: String = "") {
         var note = Note(title: title, content: content, access: [deviceId], owner: deviceId)
         
-        network
+        network?
             .createNote(note: note)
             .receive(on:  RunLoop.main)
             .sink { [weak self] response in
@@ -62,7 +68,7 @@ extension ContextManager {
     }
     
     func editNote(note: Note) {
-        network
+        network?
             .updateNote(note: note)
             .receive(on: RunLoop.main)
             .sink(receiveValue: { _ in })
@@ -72,7 +78,7 @@ extension ContextManager {
     func removeNote(offset: IndexSet) {
         for i in offset {
             guard i < current.notes.count else { continue }
-            network
+            network?
                 .deleteNote(note: current.notes[i])
                 .receive(on: RunLoop.main)
                 .sink(receiveValue: { _ in })
@@ -84,7 +90,7 @@ extension ContextManager {
  
 extension ContextManager {
     func sendAccessRequest(note: Note) {
-        network
+        network?
             .sendAccessRequest(deviceId: deviceId, note: note)
     }
 }

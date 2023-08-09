@@ -62,6 +62,7 @@ struct ListView: View {
                 }
             }
             .navigationTitle("Notes")
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 EditButton()
             }
@@ -80,6 +81,17 @@ struct ListView: View {
                 }
             }
             .padding()
+        }
+        .alert(isPresented:$manager.current.isAlertRequired) {
+            let model = manager.current.alertModel
+            return Alert(
+                title: Text(model!.title),
+                message: Text(model!.message),
+                primaryButton: .default(Text(model!.primaryButton)) {
+                    model?.primaryButtonAction()
+                },
+                secondaryButton: .cancel()
+            )
         }
     }
 }

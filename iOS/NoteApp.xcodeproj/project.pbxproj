@@ -27,6 +27,7 @@
 		6164AFB52A82DE780079B5CA /* DetectableTextEditorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFB42A82DE780079B5CA /* DetectableTextEditorModel.swift */; };
 		6164AFB72A82DF650079B5CA /* DetectableTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFB62A82DF650079B5CA /* DetectableTextEditor.swift */; };
 		6164AFB92A83A2730079B5CA /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFB82A83A2730079B5CA /* AlertModel.swift */; };
+		6164AFBD2A83AF5E0079B5CA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6164AFBC2A83AF5E0079B5CA /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		6164AFB42A82DE780079B5CA /* DetectableTextEditorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectableTextEditorModel.swift; sourceTree = "<group>"; };
 		6164AFB62A82DF650079B5CA /* DetectableTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectableTextEditor.swift; sourceTree = "<group>"; };
 		6164AFB82A83A2730079B5CA /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
+		6164AFBC2A83AF5E0079B5CA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				6164AF6A2A8254040079B5CA /* ContentView.swift */,
+				6164AFBC2A83AF5E0079B5CA /* LoginView.swift */,
 				6164AF992A825C7D0079B5CA /* ListView.swift */,
 				6164AF9B2A825D7B0079B5CA /* ListNoteCell.swift */,
 				6164AF9D2A825E530079B5CA /* NoteDetailView.swift */,
@@ -327,6 +330,7 @@
 				6164AFB52A82DE780079B5CA /* DetectableTextEditorModel.swift in Sources */,
 				6164AF9A2A825C7D0079B5CA /* ListView.swift in Sources */,
 				6164AFB72A82DF650079B5CA /* DetectableTextEditor.swift in Sources */,
+				6164AFBD2A83AF5E0079B5CA /* LoginView.swift in Sources */,
 				6164AFA02A827C630079B5CA /* NetworkManager.swift in Sources */,
 				6164AFA82A8281050079B5CA /* NoteResponse.swift in Sources */,
 				6164AF942A8256AF0079B5CA /* Note.swift in Sources */,
