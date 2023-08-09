@@ -1,0 +1,14 @@
+{
+  "name": "note.server",
+  "version": "1.0.0",
+  "description": "REST + WebSocket",
+  "main": "app.js",
+  "scripts": {},
+  "author": "Mateusz Glapiak",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^5.7.0",
+    "ws": "^8.13.0"
+  }
+}
